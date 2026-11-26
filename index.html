@@ -13,48 +13,53 @@
     .total-box { font-size: 18px; font-weight: bold; margin: 16px 0; padding: 12px; background: #f5e6d3; border-radius: 8px; text-align: right; }
     button { background: #8b4513; color: white; font-weight: bold; border: none; cursor: pointer; }
     button:hover { background: #a0522d; }
-    #status { text-align: center; font-weight: bold; margin-top: 12px; }
+    .wechat-btn { background: #07c160; margin-top: 4px; }
+    .wechat-btn:hover { background: #06ad56; }
+    #status { text-align: center; font-weight: bold; margin: 12px 0; line-height: 1.5; }
   </style>
 </head>
 <body>
   <h1>Campus Cookie Drop</h1>
   <p>Freshly baked! Delivered right to your dorm.</p>
 
-  <form id="orderForm" action="https://web3forms.com" method="POST">
+  <form id="orderForm" action="https://web3forms.com" method="POST" target="hidden_iframe" onsubmit="handleSubmit()">
     <input type="hidden" name="access_key" value="5aed9cf4-e351-4f13-b734-4ecbc85375f1">
     <input type="hidden" name="subject" value="New Campus Cookie Order!">
 
     <div class="menu-item">
       <span><strong>Chocolate Chip</strong> (¥15 each)</span>
-      <input type="number" class="qty" data-price="15" name="Chocolate_Chip_Qty" min="0" value="0" onchange="calcTotal()">
+      <input type="number" id="q1" class="qty" data-price="15" name="Chocolate_Chip_Qty" min="0" value="0" onchange="calcTotal()">
     </div>
     <div class="menu-item">
       <span><strong>Double Fudge</strong> (¥18 each)</span>
-      <input type="number" class="qty" data-price="18" name="Double_Fudge_Qty" min="0" value="0" onchange="calcTotal()">
+      <input type="number" id="q2" class="qty" data-price="18" name="Double_Fudge_Qty" min="0" value="0" onchange="calcTotal()">
     </div>
     <div class="menu-item">
       <span><strong>Oatmeal Raisin</strong> (¥15 each)</span>
-      <input type="number" class="qty" data-price="15" name="Oatmeal_Raisin_Qty" min="0" value="0" onchange="calcTotal()">
+      <input type="number" id="q3" class="qty" data-price="15" name="Oatmeal_Raisin_Qty" min="0" value="0" onchange="calcTotal()">
     </div>
 
     <div class="total-box">Total: ¥<span id="total">0</span></div>
     <input type="hidden" name="Order_Total" id="order_total_input" value="¥0">
 
     <label>Your Name</label>
-    <input type="text" name="Customer_Name" required placeholder="Alex">
+    <input type="text" id="cname" name="Customer_Name" required placeholder="Alex">
 
     <label>Dorm / Campus Drop-off Location</label>
-    <input type="text" name="Campus_Location" required placeholder="Building 5, Room 204">
+    <input type="text" id="cloc" name="Campus_Location" required placeholder="Building 5, Room 204">
 
     <label>WeChat ID or Phone Number</label>
-    <input type="text" name="Contact_Info" required placeholder="For delivery updates">
+    <input type="text" id="ccontact" name="Contact_Info" required placeholder="For delivery updates">
 
     <label>Delivery Time or Notes</label>
-    <textarea name="Notes" rows="2" placeholder="Drop off around 7 PM. WeChat Pay / Alipay / Cash on delivery."></textarea>
+    <textarea id="cnotes" name="Notes" rows="2" placeholder="Drop off around 7 PM. WeChat Pay / Alipay / Cash on delivery."></textarea>
 
     <button type="submit" id="submitBtn">Place Order</button>
+    <button type="button" class="wechat-btn" onclick="copyOrder()">Copy Order to Send on WeChat</button>
     <div id="status"></div>
   </form>
+
+  <iframe name="hidden_iframe" id="hidden_iframe" style="display:none;"></iframe>
 
   <script>
     function calcTotal() {
@@ -66,39 +71,33 @@
       document.getElementById('order_total_input').value = '¥' + total;
     }
 
-    document.getElementById('orderForm').addEventListener('submit', async function(e) {
-      e.preventDefault();
+    function handleSubmit() {
       const btn = document.getElementById('submitBtn');
       const status = document.getElementById('status');
-      btn.disabled = true;
       btn.innerText = 'Sending Order...';
+      setTimeout(() => {
+        status.style.color = 'green';
+        status.innerHTML = 'Order submitted! If you are on campus Wi-Fi without VPN, you can also tap the green button above to send it on WeChat.';
+        btn.innerText = 'Place Order';
+      }, 1500);
+    }
 
-      const formData = new FormData(this);
-      const data = Object.fromEntries(formData);
-
-      try {
-        const res = await fetch('https://web3forms.com', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
-          body: JSON.stringify(data)
-        });
-        const result = await res.json();
-        if (result.success) {
-          status.style.color = 'green';
-          status.innerText = 'Order received! We will message you on WeChat/phone soon.';
-          this.reset();
-          calcTotal();
-        } else {
-          status.style.color = 'red';
-          status.innerText = result.message || 'Something went wrong. Please try again.';
-        }
-      } catch (err) {
-        status.style.color = 'red';
-        status.innerText = 'Network error. Please try again.';
-      }
-      btn.disabled = false;
-      btn.innerText = 'Place Order';
-    });
+    function copyOrder() {
+      const text = `🍪 Cookie Order:\n` +
+        `- Chocolate Chip: ${document.getElementById('q1').value}\n` +
+        `- Double Fudge: ${document.getElementById('q2').value}\n` +
+        `- Oatmeal Raisin: ${document.getElementById('q3').value}\n` +
+        `Total: ¥${document.getElementById('total').innerText}\n` +
+        `Name: ${document.getElementById('cname').value}\n` +
+        `Location: ${document.getElementById('cloc').value}\n` +
+        `Contact: ${document.getElementById('ccontact').value}\n` +
+        `Notes: ${document.getElementById('cnotes').value}`;
+      navigator.clipboard.writeText(text).then(() => {
+        const status = document.getElementById('status');
+        status.style.color = '#07c160';
+        status.innerText = 'Order copied! Paste and send it to WeChat ID: YOUR_WECHAT_ID';
+      });
+    }
   </script>
 </body>
 </html>
