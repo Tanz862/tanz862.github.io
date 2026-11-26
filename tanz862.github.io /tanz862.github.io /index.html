@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Campus Cookie Order</title>
+  <style>
+    body { font-family: sans-serif; max-width: 500px; margin: 40px auto; padding: 0 20px; background: #fffaf0; color: #333; }
+    h1 { color: #8b4513; margin-bottom: 5px; }
+    .menu-item { display: flex; justify-content: space-between; align-items: center; margin: 12px 0; padding: 12px; background: #fff; border-radius: 8px; border: 1px solid #e6d5c3; }
+    input, textarea, button { width: 100%; padding: 10px; margin-top: 6px; margin-bottom: 16px; border-radius: 6px; border: 1px solid #ccc; box-sizing: border-box; font-size: 16px; }
+    .qty { width: 70px; margin: 0; text-align: center; }
+    .total-box { font-size: 18px; font-weight: bold; margin: 16px 0; padding: 12px; background: #f5e6d3; border-radius: 8px; text-align: right; }
+    button { background: #8b4513; color: white; font-weight: bold; border: none; cursor: pointer; }
+    button:hover { background: #a0522d; }
+  </style>
+</head>
+<body>
+  <h1>Campus Cookie Drop</h1>
+  <p>Freshly baked! Delivered right to your dorm.</p>
+
+  <form action="https://web3forms.com" method="POST">
+    <input type="hidden" name="access_key" value="5aed9cf4-e351-4f13-b734-4ecbc85375f1">
+    <input type="hidden" name="subject" value="New Campus Cookie Order!">
+
+    <div class="menu-item">
+      <span><strong>Chocolate Chip</strong> (¥15 each)</span>
+      <input type="number" class="qty" data-price="15" name="Chocolate_Chip_Qty" min="0" value="0" onchange="calcTotal()">
+    </div>
+    <div class="menu-item">
+      <span><strong>Double Fudge</strong> (¥18 each)</span>
+      <input type="number" class="qty" data-price="18" name="Double_Fudge_Qty" min="0" value="0" onchange="calcTotal()">
+    </div>
+    <div class="menu-item">
+      <span><strong>Oatmeal Raisin</strong> (¥15 each)</span>
+      <input type="number" class="qty" data-price="15" name="Oatmeal_Raisin_Qty" min="0" value="0" onchange="calcTotal()">
+    </div>
+
+    <div class="total-box">Total: ¥<span id="total">0</span></div>
+    <input type="hidden" name="Order_Total" id="order_total_input" value="¥0">
+
+    <label>Your Name</label>
+    <input type="text" name="Customer_Name" required placeholder="Alex">
+
+    <label>Dorm / Campus Drop-off Location</label>
+    <input type="text" name="Campus_Location" required placeholder="Building 5, Room 204">
+
+    <label>WeChat ID or Phone Number</label>
+    <input type="text" name="Contact_Info" required placeholder="For delivery updates">
+
+    <label>Delivery Time or Notes</label>
+    <textarea name="Notes" rows="2" placeholder="Drop off around 7 PM. WeChat Pay / Alipay / Cash on delivery."></textarea>
+
+    <button type="submit">Place Order</button>
+  </form>
+
+  <script>
+    function calcTotal() {
+      let total = 0;
+      document.querySelectorAll('.qty').forEach(input => {
+        total += (parseInt(input.value) || 0) * parseFloat(input.dataset.price);
+      });
+      document.getElementById('total').innerText = total;
+      document.getElementById('order_total_input').value = '¥' + total;
+    }
+  </script>
+</body>
+</html>
