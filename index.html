@@ -113,12 +113,17 @@
 
   <script>
     const MY_WECHAT_ID = "wxid_nmjqw136q80q22";
+
     function calcTotal() {
       let total = 0;
-      document.querySelectorAll('.qty').forEach(i => total += (parseInt(i.value) || 0) * parseFloat(i.dataset.price));
-      document.getElementById('total').innerText = total;
+      const inputs = document.querySelectorAll('.qty');
+      for (let k = 0; k < inputs.length; k++) {
+        const count = parseInt(inputs[k].value, 10) || 0;
+        const price = parseFloat(inputs[k].getAttribute('data-price')) || 0;
+        total += count * price;
+      }
+      document.getElementById('total').textContent = total;
       document.getElementById('order_total_input').value = '¥' + total;
     }
-    function copyForWeChat() {
-      let items = [];
-      document.querySelectorAll('.qty').forEach(i => { if ((parseInt(i.value) || 0) > 0) items.push(i.value + 'x ' + i.dataset.label); });
+
+    const qtyBoxes = document.querySelectorAll('.qty');
