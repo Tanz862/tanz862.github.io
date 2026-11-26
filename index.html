@@ -13,13 +13,14 @@
     .total-box { font-size: 18px; font-weight: bold; margin: 16px 0; padding: 12px; background: #f5e6d3; border-radius: 8px; text-align: right; }
     button { background: #8b4513; color: white; font-weight: bold; border: none; cursor: pointer; }
     button:hover { background: #a0522d; }
+    #status { text-align: center; font-weight: bold; margin-top: 12px; }
   </style>
 </head>
 <body>
   <h1>Campus Cookie Drop</h1>
   <p>Freshly baked! Delivered right to your dorm.</p>
 
-  <form action="https://web3forms.com" method="POST">
+  <form id="orderForm" action="https://web3forms.com" method="POST">
     <input type="hidden" name="access_key" value="5aed9cf4-e351-4f13-b734-4ecbc85375f1">
     <input type="hidden" name="subject" value="New Campus Cookie Order!">
 
@@ -51,7 +52,8 @@
     <label>Delivery Time or Notes</label>
     <textarea name="Notes" rows="2" placeholder="Drop off around 7 PM. WeChat Pay / Alipay / Cash on delivery."></textarea>
 
-    <button type="submit">Place Order</button>
+    <button type="submit" id="submitBtn">Place Order</button>
+    <div id="status"></div>
   </form>
 
   <script>
@@ -63,6 +65,40 @@
       document.getElementById('total').innerText = total;
       document.getElementById('order_total_input').value = '¥' + total;
     }
+
+    document.getElementById('orderForm').addEventListener('submit', async function(e) {
+      e.preventDefault();
+      const btn = document.getElementById('submitBtn');
+      const status = document.getElementById('status');
+      btn.disabled = true;
+      btn.innerText = 'Sending Order...';
+
+      const formData = new FormData(this);
+      const data = Object.fromEntries(formData);
+
+      try {
+        const res = await fetch('https://web3forms.com', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+          body: JSON.stringify(data)
+        });
+        const result = await res.json();
+        if (result.success) {
+          status.style.color = 'green';
+          status.innerText = 'Order received! We will message you on WeChat/phone soon.';
+          this.reset();
+          calcTotal();
+        } else {
+          status.style.color = 'red';
+          status.innerText = result.message || 'Something went wrong. Please try again.';
+        }
+      } catch (err) {
+        status.style.color = 'red';
+        status.innerText = 'Network error. Please try again.';
+      }
+      btn.disabled = false;
+      btn.innerText = 'Place Order';
+    });
   </script>
 </body>
 </html>
