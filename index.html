@@ -1,314 +1,139 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Sarawak Black Pepper Chocolate Chip Cookies | Campus Drop</title>
-  <style>
-    :root {
-      --bg: #fdf6ec;
-      --card: #ffffff;
-      --primary: #5c3218;
-      --accent: #d97724;
-      --soft: #f7e8d4;
-      --text: #3b2416;
-      --wechat: #07c160;
-    }
-    * { box-sizing: border-box; }
-    body {
-      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "PingFang SC", "Microsoft YaHei", sans-serif;
-      max-width: 540px;
-      margin: 0 auto;
-      padding: 20px 16px 100px;
-      background: var(--bg);
-      color: var(--text);
-      line-height: 1.5;
-    }
-    .hero {
-      background: linear-gradient(135deg, #5c3218 0%, #8a4b24 100%);
-      color: #fffaf3;
-      border-radius: 20px;
-      padding: 24px 20px;
-      text-align: center;
-      box-shadow: 0 8px 20px rgba(92, 50, 24, 0.15);
-      margin-bottom: 20px;
-    }
-    .badge-top {
-      display: inline-block;
-      background: rgba(255, 255, 255, 0.18);
-      padding: 4px 12px;
-      border-radius: 99px;
-      font-size: 13px;
-      margin-bottom: 10px;
-    }
-    .hero h1 { margin: 6px 0; font-size: 23px; letter-spacing: 0.3px; }
-    .hero .cn-title { font-size: 16px; color: #ffd9a8; margin-bottom: 10px; font-weight: 600; }
-    .tagline-pill {
-      display: inline-block;
-      background: #ffd9a8;
-      color: #4a250e;
-      font-weight: 700;
-      padding: 8px 16px;
-      border-radius: 99px;
-      font-size: 14px;
-      margin-top: 8px;
-      box-shadow: 0 3px 10px rgba(0,0,0,0.12);
-    }
-    .card {
-      background: var(--card);
-      border-radius: 18px;
-      padding: 18px;
-      margin-bottom: 18px;
-      border: 1px solid #eedbc5;
-      box-shadow: 0 4px 12px rgba(92, 50, 24, 0.05);
-    }
-    .gallery-grid {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 12px;
-    }
-    .photo-item { text-align: center; }
-    .photo-item img {
-      width: 100%;
-      aspect-ratio: 3 / 4;
-      object-fit: cover;
-      border-radius: 14px;
-      border: 2px solid #f2dfc8;
-      box-shadow: 0 4px 10px rgba(0,0,0,0.06);
-      background: #fff7eb;
-    }
-    .photo-label { font-size: 12px; font-weight: 700; color: #7a5843; margin-top: 6px; }
-    .photo-caption { font-size: 13px; color: #7a5843; margin-top: 12px; text-align: center; }
-    .highlights {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 8px;
-      margin: 14px 0 4px;
-      justify-content: center;
-    }
-    .chip {
-      background: var(--soft);
-      color: var(--primary);
-      padding: 5px 11px;
-      border-radius: 99px;
-      font-size: 12px;
-      font-weight: 600;
-    }
-    h2 { font-size: 18px; color: var(--primary); margin: 0 0 12px; }
-    .story-text { font-size: 14px; color: #5c402e; margin: 0 0 10px; }
-    .ingredients-box {
-      background: #fff9f0;
-      border-left: 4px solid var(--accent);
-      padding: 10px 12px;
-      border-radius: 8px;
-      font-size: 13px;
-      color: #5c402e;
-    }
-    .pack-group { margin-bottom: 16px; }
-    .pack-title {
-      font-weight: 700;
-      font-size: 15px;
-      color: var(--primary);
-      margin-bottom: 8px;
-      padding-bottom: 4px;
-      border-bottom: 1px dashed #e5cdb2;
-    }
-    .tier-item {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      padding: 10px 12px;
-      margin: 8px 0;
-      background: #fffaf3;
-      border: 1px solid #edd7be;
-      border-radius: 12px;
-    }
-    .tier-info strong { font-size: 15px; color: var(--text); }
-    .save-badge {
-      background: #ffe4c4;
-      color: #b54708;
-      font-size: 11px;
-      font-weight: 700;
-      padding: 2px 7px;
-      border-radius: 6px;
-      margin-left: 6px;
-    }
-    .qty {
-      width: 68px;
-      padding: 8px;
-      border-radius: 10px;
-      border: 1px solid #d4b89a;
-      text-align: center;
-      font-size: 16px;
-      font-weight: 700;
-      background: #fff;
-    }
-    .total-bar {
-      background: var(--soft);
-      border-radius: 14px;
-      padding: 14px 16px;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      font-size: 18px;
-      font-weight: 800;
-      color: var(--primary);
-      margin: 14px 0;
-    }
-    label {
-      display: block;
-      font-weight: 600;
-      font-size: 14px;
-      margin-bottom: 5px;
-      color: var(--primary);
-    }
-    input[type="text"], textarea {
-      width: 100%;
-      padding: 11px 12px;
-      margin-bottom: 14px;
-      border-radius: 10px;
-      border: 1px solid #d9bfa3;
-      font-size: 15px;
-      background: #fffdf9;
-    }
-    .btn {
-      width: 100%;
-      padding: 14px;
-      border-radius: 12px;
-      border: none;
-      font-size: 16px;
-      font-weight: 700;
-      cursor: pointer;
-      margin-top: 6px;
-    }
-    .btn-order { background: var(--primary); color: #fff; }
-    .btn-wechat { background: var(--wechat); color: #fff; margin-top: 10px; }
-    #status {
-      text-align: center;
-      font-weight: 700;
-      font-size: 14px;
-      margin-top: 12px;
-      padding: 8px;
-      border-radius: 8px;
-    }
-    .footer-note {
-      text-align: center;
-      font-size: 13px;
-      color: #7a5843;
-      margin-top: 16px;
-    }
-    .cat-corner {
-      position: fixed;
-      bottom: 14px;
-      right: 14px;
-      z-index: 999;
-      display: flex;
-      flex-direction: column;
-      align-items: flex-end;
-      cursor: pointer;
-    }
-    .cat-bubble {
-      background: #fff;
-      color: var(--primary);
-      border: 2px solid var(--accent);
-      padding: 5px 10px;
-      border-radius: 14px;
-      font-size: 12px;
-      font-weight: 800;
-      box-shadow: 0 4px 10px rgba(0,0,0,0.12);
-      margin-bottom: 4px;
-      animation: floatBubble 2s ease-in-out infinite;
-    }
-    .cat-avatar {
-      width: 82px;
-      height: 82px;
-      border-radius: 50%;
-      object-fit: cover;
-      border: 3px solid #fff;
-      box-shadow: 0 6px 16px rgba(92, 50, 24, 0.25);
-      background: #fdf6ec;
-      transform-origin: bottom center;
-      animation: catWave 1.6s ease-in-out infinite;
-    }
-    @keyframes catWave {
-      0%, 100% { transform: rotate(-6deg) translateY(0); }
-      50% { transform: rotate(6deg) translateY(-4px); }
-    }
-    @keyframes floatBubble {
-      0%, 100% { transform: translateY(0); }
-      50% { transform: translateY(-3px); }
-    }
-  </style>
-</head>
-<body>
-
-  <div class="hero">
-    <div class="badge-top">🇲🇾 Flavours of Southeast Asia • Since 2025</div>
-    <h1>Sarawak Black Pepper Chocolate Chip Cookies</h1>
-    <div class="cn-title">砂拉越精品黑胡椒巧克力曲奇</div>
-    <div class="tagline-pill">🍪 Send msg to taste the cookie at your door step!</div>
-  </div>
-
-  <!-- Front & Back Product Gallery Card -->
-  <div class="card">
-    <div class="gallery-grid">
-      <div class="photo-item">
-        <img src="cookie-front.jpg" alt="Cookie Bag Front">
-        <div class="photo-label">Front View</div>
-      </div>
-      <div class="photo-item">
-        <img src="cookie-back.jpg" alt="Cookie Bag Back & Nutrition">
-        <div class="photo-label">Ingredients & Nutrition</div>
-      </div>
-    </div>
-
-    <div class="highlights">
-      <span class="chip">🧈 Made with Pure Butter (纯黄油制作)</span>
-      <span class="chip">🌿 Zero Preservatives (不含防腐剂)</span>
-      <span class="chip">🌶️ Authentic Sarawak Pepper</span>
-    </div>
-    <div class="photo-caption">A daring collision turned into a sophisticated indulgence — where spice, salt, and rich chocolate elevate one another!</div>
-  </div>
-
-  <!-- Story & Ingredients Card -->
-  <div class="card">
-    <h2>✨ What Makes It Special?</h2>
-    <p class="story-text">
-      Crafted with world-famous <strong>Sarawak black pepper</strong>, pure creamy butter, roasted almonds, and rich chocolate chips. Every bite starts with sweet chocolate and finishes with a warm, aromatic pepper kick!
-    </p>
-    <div class="ingredients-box">
-      <strong>🧾 Ingredients (成分):</strong><br>
-      Wheat Flour (小麦粉), Chocolate Chips (巧克力豆), Pure Butter (黄油), Brown Sugar (红糖), Almonds (扁桃仁/巴旦木), Eggs (鸡蛋), Sarawak Black Pepper (砂拉越黑胡椒), Sodium Bicarbonate (碳酸氢钠), Salt (盐).<br>
-      <small><em>Allergens: Contains Wheat, Milk, Eggs, Soy (in chocolate), and Almonds.</em></small>
-    </div>
-  </div>
-
-  <!-- Order Form Card -->
-  <div class="card" id="order-section">
-    <h2>🛒 Choose Your Pack & Bundle Deal</h2>
-
-    <form id="orderForm" action="https://web3forms.com" method="POST">
-      <input type="hidden" name="access_key" value="5aed9cf4-e351-4f13-b734-4ecbc85375f1">
-      <input type="hidden" name="subject" value="New Sarawak Pepper Cookie Order!">
-
-      <!-- Small Packs 150g -->
-      <div class="pack-group">
-        <div class="pack-title">🍪 Small Pack — 150g (小包 150g)</div>
-
-        <div class="tier-item">
-          <div class="tier-info"><strong>1 Pack (1包)</strong> — ¥60</div>
-          <input type="number" class="qty" data-label="Small 150g (1 Pack @ ¥60)" data-price="60" name="Small_1Pack_Qty" min="0" value="0" onchange="calcTotal()">
-        </div>
-
-        <div class="tier-item">
-          <div class="tier-info"><strong>2 Packs Bundle (2包)</strong> — ¥100 <span class="save-badge">Save ¥20</span></div>
-          <input type="number" class="qty" data-label="Small 150g (2 Packs @ ¥100)" data-price="100" name="Small_2Pack_Bundle_Qty" min="0" value="0" onchange="calcTotal()">
-        </div>
-
-        <div class="tier-item">
-          <div class="tier-info"><strong>3 Packs Bundle (3包)</strong> — ¥120 <span class="save-badge">Save ¥60</span></div>
-          <input type="number" class="qty" data-label="Small 150g (3 Packs @ ¥120)" data-price="120" name="Small_3Pack_Bundle_Qty" min="0" value="0" onchange="calcTotal()">
-        </div>
-
         <div class="tier-item">
           <div class="tier-info"><strong>6 Packs Party Box (6包)</strong> — ¥200 <span class="save-badge">Best Value!</span></div>
+          <input type="number" class="qty" data-label="Small 150g (6 Packs @ ¥200)" data-price="200" name="Small_6Pack_Bundle_Qty" min="0" value="0" onchange="calcTotal()">
+        </div>
+      </div>
+
+      <div class="pack-group">
+        <div class="pack-title">🛍️ Large Pack — 340g (大包 340g)</div>
+
+        <div class="tier-item">
+          <div class="tier-info"><strong>1 Large Pack (1包)</strong> — ¥90</div>
+          <input type="number" class="qty" data-label="Large 340g (1 Pack @ ¥90)" data-price="90" name="Large_1Pack_Qty" min="0" value="0" onchange="calcTotal()">
+        </div>
+
+        <div class="tier-item">
+          <div class="tier-info"><strong>2 Large Packs (2包)</strong> — ¥160 <span class="save-badge">Save ¥20</span></div>
+          <input type="number" class="qty" data-label="Large 340g (2 Packs @ ¥160)" data-price="160" name="Large_2Pack_Bundle_Qty" min="0" value="0" onchange="calcTotal()">
+        </div>
+
+        <div class="tier-item">
+          <div class="tier-info"><strong>3 Large Packs (3包)</strong> — ¥230 <span class="save-badge">Save ¥40</span></div>
+          <input type="number" class="qty" data-label="Large 340g (3 Packs @ ¥230)" data-price="230" name="Large_3Pack_Bundle_Qty" min="0" value="0" onchange="calcTotal()">
+        </div>
+
+        <div class="tier-item">
+          <div class="tier-info"><strong>5 Large Packs (5包)</strong> — ¥350 <span class="save-badge">Save ¥100</span></div>
+          <input type="number" class="qty" data-label="Large 340g (5 Packs @ ¥350)" data-price="350" name="Large_5Pack_Bundle_Qty" min="0" value="0" onchange="calcTotal()">
+        </div>
+      </div>
+
+      <div class="total-bar">
+        <span>Total Amount:</span>
+        <span>¥<span id="total">0</span></span>
+      </div>
+      <input type="hidden" name="Order_Total" id="order_total_input" value="¥0">
+
+      <label for="custName">Your Name</label>
+      <input type="text" id="custName" name="Customer_Name" required placeholder="Alex">
+
+      <label for="custLoc">Dorm / Campus Drop-off Location</label>
+      <input type="text" id="custLoc" name="Campus_Location" required placeholder="Building 5, Room 204">
+
+      <label for="custContact">WeChat ID or Phone Number</label>
+      <input type="text" id="custContact" name="Contact_Info" required placeholder="For delivery updates">
+
+      <label for="custNotes">Delivery Time or Notes</label>
+      <textarea id="custNotes" name="Notes" rows="2" placeholder="Drop off around 7 PM. WeChat Pay / Alipay / Cash on delivery."></textarea>
+
+      <button type="submit" id="submitBtn" class="btn btn-order">🍪 Place Order Now</button>
+      <button type="button" id="wechatBtn" class="btn btn-wechat" onclick="copyForWeChat()">💬 Copy Order to Send on WeChat</button>
+      <div id="status"></div>
+    </form>
+  </div>
+
+  <div class="footer-note">
+    🚚 Fast Campus Dorm Delivery • WeChat Pay / Alipay / Cash<br>
+    <strong>Send msg to taste the cookie at your door step!</strong>
+  </div>
+
+  <div class="cat-corner" onclick="document.getElementById('order-section').scrollIntoView({behavior: 'smooth'})">
+    <div class="cat-bubble">👋 Try a cookie!</div>
+    <img src="cat-mascot.jpg" alt="Cute Baker Cat Waving" class="cat-avatar">
+  </div>
+
+  <iframe name="hidden_iframe" id="hidden_iframe" style="display:none;"></iframe>
+
+  <script>
+    const MY_WECHAT_ID = "wxid_nmjqw136q80q22";
+
+    function calcTotal() {
+      let total = 0;
+      document.querySelectorAll('.qty').forEach(input => {
+        total += (parseInt(input.value) || 0) * parseFloat(input.dataset.price);
+      });
+      document.getElementById('total').innerText = total;
+      document.getElementById('order_total_input').value = '¥' + total;
+    }
+
+    function buildOrderSummary() {
+      let items = [];
+      document.querySelectorAll('.qty').forEach(input => {
+        const count = parseInt(input.value) || 0;
+        if (count > 0) {
+          items.push(`${count}x ${input.dataset.label}`);
+        }
+      });
+      const total = document.getElementById('total').innerText;
+      const name = document.getElementById('custName').value || 'Not provided';
+      const loc = document.getElementById('custLoc').value || 'Not provided';
+      const contact = document.getElementById('custContact').value || 'Not provided';
+      const notes = document.getElementById('custNotes').value || 'None';
+
+      return `🍪 Sarawak Pepper Cookie Order\n` +
+             `Items: ${items.length ? items.join(', ') : 'None selected'}\n` +
+             `Total: ¥${total}\n` +
+             `Name: ${name}\n` +
+             `Location: ${loc}\n` +
+             `Contact: ${contact}\n` +
+             `Notes: ${notes}`;
+    }
+
+    function copyForWeChat() {
+      const summary = buildOrderSummary();
+      const status = document.getElementById('status');
+      navigator.clipboard.writeText(summary).then(() => {
+        status.style.background = '#e6f9ed';
+        status.style.color = '#067a3c';
+        status.innerHTML = `✅ Order copied! Open WeChat and send it to: <strong>${MY_WECHAT_ID}</strong>`;
+      }).catch(() => {
+        alert("Copy this order and send on WeChat:\n\n" + summary);
+      });
+    }
+
+    const form = document.getElementById('orderForm');
+    form.setAttribute('target', 'hidden_iframe');
+
+    form.addEventListener('submit', function(e) {
+      const total = parseInt(document.getElementById('total').innerText) || 0;
+      if (total === 0) {
+        e.preventDefault();
+        alert("Please select at least 1 cookie pack before placing your order!");
+        return;
+      }
+      const btn = document.getElementById('submitBtn');
+      const status = document.getElementById('status');
+      btn.disabled = true;
+      btn.innerText = 'Sending Order...';
+
+      setTimeout(() => {
+        status.style.background = '#e6f9ed';
+        status.style.color = '#067a3c';
+        status.innerHTML = `🎉 Order submitted! You can also tap the green WeChat button to message <strong>${MY_WECHAT_ID}</strong> for instant doorstep delivery!`;
+        btn.disabled = false;
+        btn.innerText = '🍪 Place Order Now';
+      }, 1200);
+    });
+  </script>
+</body>
+</html>
