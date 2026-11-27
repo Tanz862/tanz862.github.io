@@ -203,7 +203,7 @@
           throw new Error(result.message || `Request failed (${response.status})`);
         }
 
-        showStatus("Thank you! Your order has been submitted successfully. Please check your email confirmation.", "success");
+        showStatus("Thank you! Your order has been submitted successfully.", "success");
         form.reset();
         calcTotal();
       } catch (error) {
