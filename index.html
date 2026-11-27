@@ -116,80 +116,14 @@
 
     function calcTotal() {
       let total = 0;
-      const inputs = document.querySelectorAll('.qty');
-      for (let k = 0; k < inputs.length; k++) {
-        const count = parseInt(inputs[k].value, 10) || 0;
-        const price = parseFloat(inputs[k].getAttribute('data-price')) || 0;
+      document.querySelectorAll('.qty').forEach(function(input) {
+        const count = parseInt(input.value, 10) || 0;
+        const price = parseFloat(input.getAttribute('data-price')) || 0;
         total += count * price;
-      }
+      });
       document.getElementById('total').textContent = total;
       document.getElementById('order_total_input').value = '¥' + total;
     }
 
-    const qtyBoxes = document.querySelectorAll('.qty');
-      <div class="cat-corner" onclick="document.getElementById('order-section').scrollIntoView({behavior:'smooth'})">
-    <div class="cat-bubble">👋 Try a cookie!</div>
-    <img src="cat-mascot.jpg" alt="Baker Cat" class="cat-avatar">
-  </div>
-
-  <script>
-    const MY_WECHAT_ID = "wxid_nmjqw136q80q22";
-
-    function calcTotal() {
-      let total = 0;
-      const inputs = document.querySelectorAll('.qty');
-      for (let k = 0; k < inputs.length; k++) {
-        const count = parseInt(inputs[k].value, 10) || 0;
-        const price = parseFloat(inputs[k].getAttribute('data-price')) || 0;
-        total += count * price;
-      }
-      document.getElementById('total').textContent = total;
-      document.getElementById('order_total_input').value = '¥' + total;
-    }
-
-    const qtyBoxes = document.querySelectorAll('.qty');
-    for (let k = 0; k < qtyBoxes.length; k++) {
-      qtyBoxes[k].addEventListener('input', calcTotal);
-      qtyBoxes[k].addEventListener('change', calcTotal);
-      qtyBoxes[k].addEventListener('keyup', calcTotal);
-    }
-
-    function copyForWeChat() {
-      let items = [];
-      const inputs = document.querySelectorAll('.qty');
-      for (let k = 0; k < inputs.length; k++) {
-        const count = parseInt(inputs[k].value, 10) || 0;
-        if (count > 0) {
-          items.push(count + 'x ' + inputs[k].getAttribute('data-label'));
-        }
-      }
-      const msg = 'Cookie Order | Items: ' + (items.join(', ') || 'None') +
-                  ' | Total: ¥' + document.getElementById('total').textContent +
-                  ' | Name: ' + document.getElementById('custName').value +
-                  ' | Location: ' + document.getElementById('custLoc').value +
-                  ' | Contact: ' + document.getElementById('custContact').value +
-                  ' | Notes: ' + document.getElementById('custNotes').value;
-
-      if (navigator.clipboard) {
-        navigator.clipboard.writeText(msg).then(function() {
-          const s = document.getElementById('status');
-          s.style.background = '#e6f9ed';
-          s.style.color = '#067a3c';
-          s.innerHTML = '✅ Order copied! Send it on WeChat to: <strong>' + MY_WECHAT_ID + '</strong>';
-        }).catch(function() { alert(msg); });
-      } else {
-        alert(msg);
-      }
-    }
-
-    if (window.location.search.indexOf('ordered=1') !== -1) {
-      const s = document.getElementById('status');
-      s.style.background = '#e6f9ed';
-      s.style.color = '#067a3c';
-      s.innerHTML = '🎉 Order received! We will message you soon for doorstep delivery.';
-      s.scrollIntoView({behavior:'smooth'});
-    }
-  </script>
-</body>
-</html>
-
+    document.querySelectorAll('.qty').forEach(function(input) {
+      input.addEventListener('input', calcTotal);
